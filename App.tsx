@@ -1,25 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
   Text,
   Pressable
 } from 'react-native';
+import Form from './src/components/Form';
 
 const App = () => {
+
+  const [visible, setVisible] = useState(false)
+
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>
         Date Admin
       </Text>
       <Pressable
-        onPress={() => console.log('test')}
+        onPress={() => setVisible(!visible)}
         style={styles.pressable}
       >
         <Text style={styles.pressableText}>
           New date
         </Text>
       </Pressable>
+
+      <Form visible={visible} />
     </SafeAreaView>
   );
 }
@@ -47,7 +53,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: '900',
     textTransform: 'uppercase',
-    fontSize: 18
+    fontSize: 16
   }
 })
 
