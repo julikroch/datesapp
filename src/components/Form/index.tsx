@@ -11,14 +11,16 @@ import {
     TextInput,
     View,
     KeyboardTypeOptions,
-    Button
+    Pressable
 } from 'react-native'
 
-const Form = ({ visible }: FormI) => {
+const Form = ({ visible, setVisible }: FormI) => {
 
-    const { control, handleSubmit } = useForm();
+    const { control, handleSubmit, formState: { errors } } = useForm();
 
-    const onSubmit = (data: any) => console.log({ data });
+    const onSubmit = (data: any) => {
+
+    }
 
     return (
         <Modal animationType="slide" visible={visible}>
@@ -27,6 +29,13 @@ const Form = ({ visible }: FormI) => {
                     <Text style={styles.title}>New {' '}
                         <Text style={styles.boldTitle}>Date</Text>
                     </Text>
+
+                    <Pressable
+                        onPress={() => setVisible(!visible)}
+                        style={styles.cancelBtn}
+                    >
+                        <Text style={styles.cancelBtnText}>X</Text>
+                    </Pressable>
 
                     {FIELDS.map(field =>
                         <View key={field?.label} style={styles.inputContainer}>
@@ -50,13 +59,19 @@ const Form = ({ visible }: FormI) => {
                                             onChangeText={onChange}
                                             value={value}
                                         />
+                                        {errors[field.label] && <Text style={styles.errorMsg}>This is required.</Text>}
                                     </>
                                 )}
                             />
                         </View>
                     )}
 
-                    <Button title="Submit" onPress={handleSubmit(onSubmit)} />
+                    <Pressable
+                        style={styles.addBtn}
+                        onPress={handleSubmit(onSubmit)}
+                    >
+                        <Text style={styles.addBtnText}>Add</Text>
+                    </Pressable>
                 </ScrollView>
             </SafeAreaView>
         </Modal>

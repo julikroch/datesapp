@@ -1,5 +1,6 @@
 export type FormI = {
-    visible: boolean;
+    visible: boolean
+    setVisible: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export type FieldsI = {

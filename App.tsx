@@ -25,7 +25,10 @@ const App = () => {
         </Text>
       </Pressable>
 
-      <Form visible={visible} />
+      <Form
+        setVisible={setVisible}
+        visible={visible}
+      />
     </SafeAreaView>
   );
 }
