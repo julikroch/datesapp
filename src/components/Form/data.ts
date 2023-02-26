@@ -1,26 +1,31 @@
-import { FieldsI } from "./typings";
+import { FieldsT } from "./typings";
 
-export const FIELDS: FieldsI[] = [
+export const FIELDS: FieldsT[] = [
     {
+        name: 'name',
         label: "Patient name",
         placeholder: "Bolt"
     },
     {
-        label: "Propertier name",
+        name: 'propietorName',
+        label: "Proprietor name",
         placeholder: "Jane"
     },
     {
-        label: "Propertier email",
+        name: 'propietorEmail',
+        label: "Proprietor email",
         placeholder: "jane@doe.com",
         keyboard: "email-address"
     },
     {
-        label: "Propertier phone",
+        name: 'propietorPhone',
+        label: "Proprietor phone",
         placeholder: "+54 9 11 4993-5476",
         keyboard: "numeric"
     },
     {
-        label: "Patient synthomps",
+        name: 'patientSymptoms',
+        label: "Patient symptoms",
         placeholder: "Sleeping problems",
         multiline: true,
         numberOfLines: 4

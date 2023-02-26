@@ -3,13 +3,17 @@ import {
   SafeAreaView,
   StyleSheet,
   Text,
-  Pressable
+  Pressable,
+  FlatList
 } from 'react-native';
 import Form from './src/components/Form';
+import Patient from './src/components/Patient';
+import { PatientsT } from './src/components/Form/typings';
 
 const App = () => {
 
   const [visible, setVisible] = useState(false)
+  const [patients, setPatients] = useState<PatientsT[]>([])
 
   return (
     <SafeAreaView style={styles.container}>
@@ -25,7 +29,24 @@ const App = () => {
         </Text>
       </Pressable>
 
+      {!patients
+        ?
+        <Text style={styles.notPatients}>Not patients yet.</Text>
+        :
+        <FlatList
+          style={styles.patientList}
+          data={patients}
+          keyExtractor={(item) => String(item.id)}
+          renderItem={({ item }) => {
+            console.log({ item })
+            return <Patient {...item as unknown as PatientsT} />
+          }}
+        />
+      }
+
       <Form
+        setPatients={setPatients}
+        patients={patients}
         setVisible={setVisible}
         visible={visible}
       />
@@ -57,6 +78,16 @@ const styles = StyleSheet.create({
     fontWeight: '900',
     textTransform: 'uppercase',
     fontSize: 16
+  },
+  notPatients: {
+    marginTop: 40,
+    textAlign: 'center',
+    fontSize: 24,
+    fontWeight: '600'
+  },
+  patientList: {
+    marginTop: 50,
+    marginHorizontal: 30
   }
 })
 
