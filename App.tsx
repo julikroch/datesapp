@@ -1,19 +1,23 @@
 import React, { useState } from 'react';
 import {
   SafeAreaView,
-  StyleSheet,
   Text,
   Pressable,
   FlatList
 } from 'react-native';
 import Form from './src/components/Form';
 import Patient from './src/components/Patient';
-import { PatientsT } from './src/components/Form/typings';
+import { PatientsT } from './src/typings';
+import { styles } from './App.styles';
 
 const App = () => {
 
   const [visible, setVisible] = useState(false)
   const [patients, setPatients] = useState<PatientsT[]>([])
+
+  const editPatient = (id: string) => {
+    console.log('editing', id)
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -38,8 +42,14 @@ const App = () => {
           data={patients}
           keyExtractor={(item) => String(item.id)}
           renderItem={({ item }) => {
-            console.log({ item })
-            return <Patient {...item as unknown as PatientsT} />
+            return (
+              <Patient
+                item={item}
+                editPatient={editPatient}
+                setVisible={setVisible}
+                visible={visible}
+              />
+            )
           }}
         />
       }
@@ -53,42 +63,5 @@ const App = () => {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#f3f4f6',
-    flex: 1,
-  },
-  title: {
-    color: '#374151',
-    fontWeight: '600',
-    fontSize: 32,
-    textAlign: 'center'
-  },
-  pressable: {
-    backgroundColor: '#6d28d9',
-    padding: 20,
-    marginTop: 20,
-    marginHorizontal: 20,
-    borderRadius: 10
-  },
-  pressableText: {
-    textAlign: 'center',
-    color: '#fff',
-    fontWeight: '900',
-    textTransform: 'uppercase',
-    fontSize: 16
-  },
-  notPatients: {
-    marginTop: 40,
-    textAlign: 'center',
-    fontSize: 24,
-    fontWeight: '600'
-  },
-  patientList: {
-    marginTop: 50,
-    marginHorizontal: 30
-  }
-})
 
 export default App;

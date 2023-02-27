@@ -1,33 +1,41 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import { PatientsT } from '../Form/typings'
+import React, { FC } from 'react'
+import { Pressable, Text, View } from 'react-native'
+import { PatientsT } from '../../typings'
+import { styles } from './styles'
 
-const Patient = (item: PatientsT) => {
+interface Props {
+    item: PatientsT,
+    visible: boolean,
+    setVisible: React.Dispatch<React.SetStateAction<boolean>>,
+    editPatient: (id: string) => void
+}
 
-    const {
-        name,
-        patientSymptoms,
-        propietorEmail,
-        propietorName,
-        propietorPhone
-    } = item
+const Patient: FC<Props> = ({ item, visible, setVisible, editPatient }) => {
+
+    const { name, id } = item
 
     return (
-        <View>
-            <Text>{name}</Text>
-            <Text>{patientSymptoms}</Text>
-            <Text>{propietorEmail}</Text>
-            <Text>{propietorName}</Text>
-            <Text>{propietorPhone}</Text>
+        <View style={styles.container}>
+            <Text style={styles.label}>Pacient: </Text>
+            <Text style={styles.text}>{name}</Text>
+            <View style={styles.buttonsContainer}>
+                <Pressable
+                    style={[styles.button, styles.editButton]}
+                    onLongPress={() => {
+                        setVisible(!visible)
+                        editPatient(String(id))
+                    }}
+                >
+                    <Text style={styles.buttonText}>Edit</Text>
+                </Pressable>
+                <Pressable style={[styles.button, styles.deleteButton]}>
+                    <Text style={styles.buttonText}>Delete</Text>
+                </Pressable>
+            </View>
         </View>
     )
 }
 
-const styles = StyleSheet.create({
-    container: {
-        backgroundColor: 'red',
-        color: 'white'
-    },
-})
+
 
 export default Patient

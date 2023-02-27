@@ -1,8 +1,9 @@
 import { StyleSheet } from "react-native";
+import { defaultColors } from "../../styles";
 
 export const styles = StyleSheet.create({
     content: {
-        backgroundColor: '#6d28d9',
+        backgroundColor: defaultColors.violet,
         flex: 1,
         position: 'relative'
     },
@@ -44,7 +45,7 @@ export const styles = StyleSheet.create({
         right: 0,
         top: 10,
         margin: 20,
-        backgroundColor: '#5827a4',
+        backgroundColor: defaultColors.violet,
         paddingVertical: 10,
         paddingHorizontal: 15,
         borderRadius: 100,
@@ -58,7 +59,7 @@ export const styles = StyleSheet.create({
         fontWeight: '900'
     },
     addBtn: {
-        backgroundColor: '#f59e0b',
+        backgroundColor: defaultColors.orange,
         borderRadius: 10,
         padding: 10,
         margin: 30
@@ -67,10 +68,10 @@ export const styles = StyleSheet.create({
         textTransform: 'uppercase',
         fontSize: 20,
         fontWeight: '700',
-        color: '#6d28d9',
+        color: defaultColors.violet,
         textAlign: 'center'
     },
     errorMsg: {
-        color: '#ff0000'
+        color: defaultColors.red
     }
 })

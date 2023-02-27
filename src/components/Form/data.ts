@@ -1,4 +1,4 @@
-import { FieldsT } from "./typings";
+import { FieldsT } from "../../typings";
 
 export const FIELDS: FieldsT[] = [
     {

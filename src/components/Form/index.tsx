@@ -1,6 +1,6 @@
 import React from 'react';
 import { Controller, FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import type { FormT, PatientsT } from './typings';
+import type { FormT, PatientsT } from '../../typings';
 import { FIELDS } from './data';
 import { styles } from './styles';
 import {
