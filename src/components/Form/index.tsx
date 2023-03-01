@@ -18,7 +18,9 @@ const Form = ({
     visible,
     setVisible,
     setPatients,
-    patients
+    setPatient,
+    patients,
+    patient
 }: FormT) => {
 
     const {
@@ -29,9 +31,15 @@ const Form = ({
     } = useForm();
 
     const onSubmit = (data: PatientsT) => {
-        const newPatient = { ...data, id: Date.now() }
+        if (!data.id) {
+            const newPatient = { ...data, id: Date.now() }
+            setPatients([...patients, newPatient])
+        } else {
+            const updatePatients = patients.map(item => item?.id === data.id ? data : item)
+            setPatients(updatePatients)
+            setPatient(undefined)
+        }
 
-        setPatients([...patients, newPatient])
         reset({ data: {} })
         setVisible(!visible)
     }
@@ -45,8 +53,12 @@ const Form = ({
                     </Text>
 
                     <Pressable
-                        onPress={() => setVisible(!visible)}
-                        style={styles.cancelBtn}>
+                        onPress={() => {
+                            setVisible(!visible)
+                            setPatient(undefined)
+                        }}
+                        style={styles.cancelBtn}
+                    >
                         <Text style={styles.cancelBtnText}>X</Text>
                     </Pressable>
 
@@ -75,7 +87,7 @@ const Form = ({
                                             numberOfLines={field.numberOfLines ?? 1}
                                             onBlur={onBlur}
                                             onChangeText={onChange}
-                                            value={value}
+                                            value={patient ? patient[field.name as keyof PatientsT] : value}
                                         />
                                         {errors[field.name] && (
                                             <Text style={styles.errorMsg}>This field is required.</Text>

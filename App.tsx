@@ -14,9 +14,12 @@ const App = () => {
 
   const [visible, setVisible] = useState(false)
   const [patients, setPatients] = useState<PatientsT[]>([])
+  const [patient, setPatient] = useState<PatientsT>()
 
   const editPatient = (id: string) => {
-    console.log('editing', id)
+    const patientToEdit = patients.find(item => String(item.id) === id)
+
+    setPatient(patientToEdit)
   }
 
   return (
@@ -33,7 +36,7 @@ const App = () => {
         </Text>
       </Pressable>
 
-      {!patients
+      {!patients.length
         ?
         <Text style={styles.notPatients}>Not patients yet.</Text>
         :
@@ -57,6 +60,8 @@ const App = () => {
       <Form
         setPatients={setPatients}
         patients={patients}
+        setPatient={setPatient}
+        patient={patient}
         setVisible={setVisible}
         visible={visible}
       />
